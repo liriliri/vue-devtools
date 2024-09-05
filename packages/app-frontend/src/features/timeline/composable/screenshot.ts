@@ -62,7 +62,7 @@ export async function takeScreenshot(event: TimelineEvent) {
 
 export const supportsScreenshot = typeof browser !== 'undefined' || (typeof chrome !== 'undefined' && !!chrome.tabs && typeof chrome.tabs.captureVisibleTab === 'function')
 
-if (typeof browser !== 'undefined') {
+if (typeof browser !== 'undefined' && browser.runtime.onMessage) {
   browser.runtime.onMessage.addListener((req) => {
     if (req.action === 'vue-screenshot-result') {
       const screenshot = screenshots.value.find(s => s.id === req.id)
